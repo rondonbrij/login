@@ -1,7 +1,6 @@
-<!-- login.php -->
-
-
 <?php
+// Start the session
+session_start();
 
 interface UserRepositoryInterface
 {
@@ -101,6 +100,9 @@ class LoginController
     public function login($username, $password)
     {
         if ($this->authenticationService->authenticate($username, $password)) {
+            // Set a session variable to remember the user's login status
+            $_SESSION['loggedin'] = true;
+
             // Redirect to the successful login page
             header("Location: success.php");
             exit();
@@ -124,3 +126,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $loginController->login($username, $password);
 }
+?>

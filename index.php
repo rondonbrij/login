@@ -1,5 +1,22 @@
-<!-- index.php -->
+<?php
+// Start the session
+session_start();
 
+// Check if the user is already logged in
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+  echo '<div class="login-container">
+  <h2 class="title">Welcome Back!</h2>
+  <p>You are currently logged in.</p>
+  <form action="success.php" method="POST">
+    <button type="submit" class="button">Continue</button>
+  </form>
+  <form action="logout.php" method="POST">
+    <button type="submit" class="button">Logout</button>
+  </form>
+</div>';
+  exit();
+}
+?>
 
 <!DOCTYPE html>
 <html>
@@ -11,7 +28,6 @@
 
     body {
       font-family: 'Open Sans', sans-serif;
-      /* font-family: 'Ubuntu Mono', monospace; */
       font-size: 16px;
       background-color: #f5f5f5;
       color: #333;
@@ -27,7 +43,8 @@
     }
 
     input[type="text"],
-    input[type="password"] {
+    input[type="password"],
+    button {
       width: 92%;
       margin-bottom: 10px;
       padding: 10px;
@@ -38,13 +55,10 @@
     }
 
     button {
-      width: 100%;
-      padding: 10px;
       background-color: #ff2054;
       color: #fff;
       border: none;
       cursor: pointer;
-      border-radius: 4px;
     }
 
     .error {
